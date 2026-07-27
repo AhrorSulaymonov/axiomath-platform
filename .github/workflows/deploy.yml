@@ -1,0 +1,61 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploying to Azure VM via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.AZURE_HOST }}
+          username: ${{ secrets.AZURE_USERNAME }}
+          key: ${{ secrets.AZURE_SSH_KEY }}
+          script: |
+            set -e
+            echo "🚀 Deployment started on Azure VM..."
+            
+            # Navigate to project root
+            cd ~/education-ai || git clone https://github.com/${{ github.repository }}.git ~/education-ai && cd ~/education-ai
+            
+            # Pull latest changes
+            git fetch origin main
+            git reset --hard origin/main
+            
+            # Setup/Update Python environment
+            if [ ! -d "venv" ]; then
+              python3 -m venv venv
+            fi
+            source venv/bin/activate
+            pip install -r requirements.txt
+            python3 -m playwright install --with-deps chromium
+            
+            # Setup/Update Landing Page
+            if [ -d "landing_page" ]; then
+              cd landing_page
+              npm install
+              npm run build
+              cd ..
+            fi
+
+            # Setup/Update Main Frontend (Next.js)
+            if [ -d "frontend" ]; then
+              cd frontend
+              npm install
+              npm run build
+              cd ..
+            fi
+
+            # Restart Services using PM2
+            if command -v pm2 &> /dev/null; then
+              pm2 restart all || pm2 start ecosystem.config.js || true
+            fi
+            
+            echo "✅ Deployment completed successfully!"

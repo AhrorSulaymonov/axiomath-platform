@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background-color: #f9fafb; /* Och kulrang orqa fon */
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d1d5db;
+}
+
+/* --- MATEMATIKA FORMULALARI UCHUN STILLAR --- */
+
+/* 1. Matn ichidagi qisqa formulalar (Inline math) */
+.katex {
+  background-color: #f3f4f6; /* Och kulrang fon */
+  color: #6d28d9; /* To'q siyohrang yozuv */
+  padding: 0.125rem 0.375rem; /* Atrofida ozgina bo'shliq */
+  border-radius: 0.375rem; /* Burchaklarini silliqlash */
+  font-size: 1.05em;
+  font-family: monospace;
+  white-space: normal !important;
+  word-break: break-word !important;
+  line-height: 1.6;
+}
+
+/* 2. Alohida qatorda chiqadigan katta formulalar (Display math) */
+.katex-display {
+  background-color: #f5f3ff; /* Och siyohrang fon */
+  border: 1px solid #ede9fe; /* Nozik hoshiya */
+  padding: 1rem; /* Ichki bo'shliq */
+  border-radius: 0.75rem; /* Katta silliq burchaklar */
+  margin: 1.25rem 0; /* Tepa va pastdan ajratib turish */
+  overflow-x: auto; /* Formula sig'masa skroll chiqishi uchun */
+}
+
+/* --- MAVZU (Theme) INVERSIYA --- */
+html[data-theme="dark"] {
+  filter: invert(1) hue-rotate(180deg);
+}
+html[data-theme="dark"] img, 
+html[data-theme="dark"] video,
+html[data-theme="dark"] .dark-invert-ignore {
+  filter: invert(1) hue-rotate(180deg);
+}

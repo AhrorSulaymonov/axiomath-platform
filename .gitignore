@@ -1,0 +1,40 @@
+# Python and Fastapi
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+# Database and Outputs
+*.db
+*.sqlite3
+output/
+users.json
+
+# Node & Next.js
+node_modules/
+.next/
+dist/
+build/
+npm-debug.log*
+
+# Models and Large Assets
+models/
+scratch/
+*.safetensors
+*.bin
+*.onnx
+
+# Temp media & generated files
+*.mp3
+*.wav
+*.mp4
+*.png
+*.jpg
+.tempmediaStorage/
+apply_*.js
+
+# OS Files
+.DS_Store
+Thumbs.db
