@@ -11,8 +11,8 @@ module.exports = {
     },
     {
       name: "axiomath-frontend",
-      script: "npm",
-      args: "run start -- -p 3000",
+      script: "node_modules/next/dist/bin/next",
+      args: "start -p 3000",
       cwd: "/home/azureuser/axiomath-platform/frontend",
       env: {
         PORT: 3000,
