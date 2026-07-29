@@ -2,8 +2,8 @@ module.exports = {
   apps: [
     {
       name: "axiomath-backend",
-      script: "venv/bin/python3",
-      args: "-m uvicorn api:app --host 127.0.0.1 --port 8000",
+      script: "api.py",
+      interpreter: "venv/bin/python3",
       cwd: "/home/azureuser/axiomath-platform",
       env: {
         NODE_ENV: "production",
