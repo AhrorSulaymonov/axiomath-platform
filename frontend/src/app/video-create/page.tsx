@@ -12,7 +12,9 @@ import {
 } from "lucide-react";
 import { useAppContext } from "../../context/AppContext";
 
-const API_BASE = "http://localhost:8000/api";
+const API_BASE = typeof window !== "undefined" && window.location.hostname === "localhost" 
+  ? "http://localhost:8000/api" 
+  : "https://api.axiomath.tech/api";
 
 export default function VideoCreatePage() {
   const { username, fetchUserInfo, fetchHistory, settings, updateSettings, t } = useAppContext();

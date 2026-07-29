@@ -9,7 +9,9 @@ import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import { useAppContext } from "../../context/AppContext";
 
-const API_BASE = "http://localhost:8000/api";
+const API_BASE = typeof window !== "undefined" && window.location.hostname === "localhost" 
+  ? "http://localhost:8000/api" 
+  : "https://api.axiomath.tech/api";
 
 export default function ChatPage() {
   const { username, chatSessions, setChatSessions, activeChatId, setActiveChatId, fetchUserInfo, fetchHistory } = useAppContext();

@@ -4,7 +4,9 @@ import axios from "axios";
 import { translations } from "../app/i18n";
 import { useRouter, usePathname } from "next/navigation";
 
-const API_BASE = "http://localhost:8000/api";
+const API_BASE = typeof window !== "undefined" && window.location.hostname === "localhost" 
+  ? "http://localhost:8000/api" 
+  : "https://api.axiomath.tech/api";
 
 type ChatMessage = { role: 'user' | 'assistant'; content: string; yt_videos?: any[]; image?: string; };
 type ChatSession = { id: string; title: string; messages: ChatMessage[]; timestamp: string; };

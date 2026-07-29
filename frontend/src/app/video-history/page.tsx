@@ -3,7 +3,9 @@ import axios from "axios";
 import { Loader2, Trash2 } from "lucide-react";
 import { useAppContext } from "../../context/AppContext";
 
-const API_BASE = "http://localhost:8000/api";
+const API_BASE = typeof window !== "undefined" && window.location.hostname === "localhost" 
+  ? "http://localhost:8000/api" 
+  : "https://api.axiomath.tech/api";
 
 export default function VideoHistoryPage() {
   const { username, history, fetchHistory } = useAppContext();
