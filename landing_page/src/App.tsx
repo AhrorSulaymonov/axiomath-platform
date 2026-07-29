@@ -1,9 +1,8 @@
-import React from "react";
-import { BrainCircuit, PlayCircle, BookOpen, Clock, Settings, Brain, ChevronRight, Zap, Target, Users, Play, Video, Sparkles, Layers, ShieldCheck, Mail, ArrowRight, CheckCircle2 } from "lucide-react";
+import { BrainCircuit, PlayCircle, BookOpen, Clock, Settings, Zap, Target, Users, Video, Sparkles, Layers, ShieldCheck, Mail, ArrowRight, CheckCircle2 } from "lucide-react";
 
 export default function App() {
   const onLoginClick = () => {
-    window.location.href = "http://localhost:3000";
+    window.location.href = "https://app.axiomath.tech";
   };
 
   return (
