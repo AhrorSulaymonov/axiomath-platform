@@ -55,13 +55,30 @@ export default function ChatPage() {
     if (currentInput) formData.append("prompt", currentInput);
     if (currentFile) formData.append("image", currentFile);
     
+    if (!newSession && chatId && chatId.length === 24) {
+      formData.append("task_id", chatId);
+    }
+    const previousMessages = activeChat ? activeChat.messages : [];
+    if (previousMessages.length > 0) {
+      formData.append("history", JSON.stringify(previousMessages));
+    }
+    
     const ctrl = new AbortController(); abortControllerRef.current = ctrl;
     
     try {
       const res = await axios.post(`${API_BASE}/tasks/analyze-text`, formData, { headers: { "Content-Type": "multipart/form-data" }, signal: ctrl.signal });
       if (res.data.success) {
+        const returnedTaskId = res.data.task_id;
         const aiMessage = { role: 'assistant' as const, content: res.data.text, yt_videos: res.data.yt_videos || [] };
-        setChatSessions((prev: any) => prev.map((s: any) => s.id === chatId ? { ...s, messages: [...s.messages, aiMessage] } : s));
+        setChatSessions((prev: any) => prev.map((s: any) => {
+          if (s.id === chatId) {
+            return { ...s, id: returnedTaskId || s.id, messages: [...s.messages, aiMessage] };
+          }
+          return s;
+        }));
+        if (returnedTaskId && returnedTaskId !== chatId) {
+          setActiveChatId(returnedTaskId);
+        }
         fetchUserInfo(username); fetchHistory(username);
       }
     } catch (error: any) {

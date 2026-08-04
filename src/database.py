@@ -130,7 +130,7 @@ def db_create_task(username: str, prompt: str, image_path: str = None, status: s
     })
     return str(res.inserted_id)
 
-def db_update_task(task_id: str, status: str, video_path: str = None, title: str = None, error_message: str = None, text_content: str = None, yt_videos: list = None) -> None:
+def db_update_task(task_id: str, status: str, video_path: str = None, title: str = None, error_message: str = None, text_content: str = None, yt_videos: list = None, messages: list = None) -> None:
     from bson import ObjectId
     tasks_col = mongo_db["lesson_tasks"]
     update_fields = {"status": status}
@@ -144,6 +144,8 @@ def db_update_task(task_id: str, status: str, video_path: str = None, title: str
         update_fields["text_content"] = text_content
     if yt_videos is not None:
         update_fields["yt_videos"] = yt_videos
+    if messages is not None:
+        update_fields["messages"] = messages
         
     tasks_col.update_one(
         {"_id": ObjectId(task_id)},

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   BrainCircuit, PlayCircle, BookOpen, Clock, Settings, Zap, Target,
-  Users, Video, Sparkles, Layers, ShieldCheck, Mail, ArrowRight, CheckCircle2, Globe
+  Users, Video, Sparkles, Layers, ShieldCheck, Mail, ArrowRight, CheckCircle2, Globe, Phone
 } from "lucide-react";
 
 type Lang = "uz" | "ru" | "en";
@@ -21,9 +21,7 @@ const t = {
     product: { title: "Bizning AI yechimimiz", step1: "Matn kiritish", step2: "AI Ssenariy", step3: "Video Generatsiya", models: "ML MODELLARI", result: "AXIOMATH NATIJASI" },
     team: { title: "Loyihani yaraturuvchilar jamoasi", members: [
       { name: "Ahror Sulaymonov", role: "CEO va Asoschi", desc: "Sun'iy intellekt bo'yicha mutaxassis" },
-      { name: "Jamoa A'zosi", role: "AI Muhandis", desc: "Machine Learning bo'yicha ekspert" },
-      { name: "Jamoa A'zosi", role: "Frontend Dasturchi", desc: "React va Next.js ustasi" },
-      { name: "Jamoa A'zosi", role: "Mahsulot Menejeri", desc: "Foydalanuvchi tajribasi (UX)" }
+      { name: "Tez kunda...", role: "Hammuassis", desc: "Jamoamiz kengaymoqda" }
     ] },
     footer: { desc: "Ta'lim uchun mo'ljallangan ilg'or sun'iy intellekt platformasi. O'qituvchi va talabalar uchun video darsliklar yaratishning eng oson yo'li.", menus: "Menyular", contact: "Aloqa", rights: "Barcha huquqlar himoyalangan." }
   },
@@ -41,9 +39,7 @@ const t = {
     product: { title: "Наше ИИ-решение", step1: "Ввод текста", step2: "ИИ Сценарий", step3: "Генерация Видео", models: "ML МОДЕЛИ", result: "РЕЗУЛЬТАТ AXIOMATH" },
     team: { title: "Команда создателей", members: [
       { name: "Ahror Sulaymonov", role: "CEO и Основатель", desc: "Специалист по ИИ" },
-      { name: "Член Команды", role: "ИИ Инженер", desc: "Эксперт по Machine Learning" },
-      { name: "Член Команды", role: "Frontend Разработчик", desc: "Мастер React и Next.js" },
-      { name: "Член Команды", role: "Продукт-менеджер", desc: "Пользовательский опыт (UX)" }
+      { name: "Скоро...", role: "Сооснователь", desc: "Наша команда расширяется" }
     ] },
     footer: { desc: "Передовая ИИ-платформа для образования. Самый простой способ создавать видеоуроки.", menus: "Меню", contact: "Контакты", rights: "Все права защищены." }
   },
@@ -61,9 +57,7 @@ const t = {
     product: { title: "Our AI Solution", step1: "Text Input", step2: "AI Script", step3: "Video Generation", models: "ML MODELS", result: "AXIOMATH RESULT" },
     team: { title: "Project Creators Team", members: [
       { name: "Ahror Sulaymonov", role: "CEO & Founder", desc: "AI Specialist" },
-      { name: "Team Member", role: "AI Engineer", desc: "Machine Learning Expert" },
-      { name: "Team Member", role: "Frontend Developer", desc: "React and Next.js Master" },
-      { name: "Team Member", role: "Product Manager", desc: "User Experience (UX)" }
+      { name: "Coming soon...", role: "Co-founder", desc: "Our team is expanding" }
     ] },
     footer: { desc: "Advanced AI platform designed for education. The easiest way to create video lessons.", menus: "Menus", contact: "Contact", rights: "All rights reserved." }
   }
@@ -350,9 +344,9 @@ export default function App() {
             </div>
             <div>
               <h4 className="text-white font-bold mb-4">{d.footer.contact}</h4>
-              <p className="text-sm flex items-center gap-2 mb-2">
-                <Mail className="w-4 h-4" /> info@education-ai.app
-              </p>
+              <a href="tel:+998500082310" className="text-sm flex items-center gap-2 mb-2 hover:text-white transition-colors cursor-pointer">
+                <Phone className="w-4 h-4" /> +998 (50) 008 23 10
+              </a>
             </div>
           </div>
           <div className="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-slate-800 text-center text-sm">

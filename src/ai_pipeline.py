@@ -116,9 +116,9 @@ class AIPipeline:
         import base64
         import mimetypes
 
-        api_key = config.BYNARA_API_KEY
-        base_url = config.BYNARA_BASE_URL
-        model = config.BYNARA_MODEL
+        api_key = config.BYNARA_API_KEY.strip() if config.BYNARA_API_KEY else ""
+        base_url = config.BYNARA_BASE_URL.strip() if config.BYNARA_BASE_URL else ""
+        model = config.BYNARA_MODEL.strip() if config.BYNARA_MODEL else ""
 
         if not api_key:
             raise ValueError("Bynara API Key kiritilmagan! Iltimos, sozlamalardan API kalitni kiriting.")
@@ -567,7 +567,7 @@ class AIPipeline:
                     
         return storyboard
 
-    def generate_text_analysis(self, prompt: str, image_path=None) -> str:
+    def generate_text_analysis(self, prompt: str, image_path=None, messages_list=None):
         system_prompt = (
             "Act as an expert math/science teacher. Solve the provided problem step-by-step. "
             "CRITICAL RULE: Detect the language of the user's question and respond ENTIRELY in that same language. "
@@ -590,7 +590,17 @@ class AIPipeline:
             "3. DO NOT output your thought process. Give the final answer directly.\n\n"
             "User Input/Problem:\n"
         )
-        full_prompt = system_prompt + prompt
+        
+        history_text = ""
+        if messages_list:
+            history_text = "PREVIOUS CONVERSATION CONTEXT:\n"
+            for msg in messages_list:
+                role = "User" if msg.get("role") == "user" else "Assistant"
+                content = msg.get("content", "")
+                history_text += f"{role}: {content}\n\n"
+            history_text += "NEW QUESTION:\n"
+            
+        full_prompt = system_prompt + history_text + prompt
         
         logger.info("Bynara API orqali text tahlil qilish boshlandi...")
         try:

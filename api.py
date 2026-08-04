@@ -266,7 +266,8 @@ def get_history(username: str):
             "error_message": item.get("error_message"),
             "video_base64": video_base64,
             "task_type": item.get("task_type", "video"),
-            "text_content": item.get("text_content")
+            "text_content": item.get("text_content"),
+            "messages": item.get("messages")
         })
     return formatted
 
@@ -343,7 +344,9 @@ async def generate_video(
 async def analyze_text(
     username: str = Form(...),
     prompt: Optional[str] = Form(None),
-    image: Optional[UploadFile] = File(None)
+    image: Optional[UploadFile] = File(None),
+    task_id: Optional[str] = Form(None),
+    history: Optional[str] = Form(None)
 ):
     from src.ai_pipeline import AIPipeline
     if not deduct_credit(username):
@@ -369,22 +372,40 @@ async def analyze_text(
 
     final_prompt = prompt.strip() if prompt and prompt.strip() else "Rasm orqali kiritilgan masala"
     
+    import json
+    messages_list = []
+    if history:
+        try:
+            messages_list = json.loads(history)
+        except Exception:
+            pass
+            
     try:
         pipeline = AIPipeline()
-        text_result, yt_videos = pipeline.generate_text_analysis(final_prompt, temp_image_path)
+        text_result, yt_videos = pipeline.generate_text_analysis(final_prompt, temp_image_path, messages_list)
+        
+        # Append new interaction to messages_list
+        messages_list.append({"role": "user", "content": final_prompt})
+        messages_list.append({"role": "assistant", "content": text_result, "yt_videos": yt_videos})
         
         # Save to history
-        task_id = db_create_task(
-            username=username,
-            prompt=final_prompt,
-            image_path=temp_image_path,
-            status="COMPLETED",
-            task_type="text"
-        )
+        from src.database import db_update_task, db_get_task
+        is_existing = False
+        if task_id and len(task_id) == 24:
+            existing = db_get_task(task_id)
+            if existing and existing.get("username") == username:
+                is_existing = True
+                
+        if not is_existing:
+            task_id = db_create_task(
+                username=username,
+                prompt=final_prompt,
+                image_path=temp_image_path,
+                status="COMPLETED",
+                task_type="text"
+            )
         
-        # Update text_content and yt_videos directly using update_task
-        from src.database import db_update_task
-        db_update_task(task_id, "COMPLETED", text_content=text_result, title="AI Tahlil", yt_videos=yt_videos)
+        db_update_task(task_id, "COMPLETED", text_content=text_result, title="AI Tahlil", yt_videos=yt_videos, messages=messages_list)
         
         return {"success": True, "task_id": task_id, "text": text_result, "yt_videos": yt_videos}
     except Exception as e:
