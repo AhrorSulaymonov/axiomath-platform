@@ -23,7 +23,7 @@ jobs:
             echo "🚀 Deployment started on Azure VM..."
             
             # Navigate to project root
-            cd ~/education-ai || git clone https://github.com/${{ github.repository }}.git ~/education-ai && cd ~/education-ai
+            cd ~/axiomath-platform || git clone https://github.com/${{ github.repository }}.git ~/axiomath-platform && cd ~/axiomath-platform
             
             # Pull latest changes
             git fetch origin main
