@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { Loader2, Trash2 } from "lucide-react";
+import { Loader2, Trash2, Video } from "lucide-react";
 import { useAppContext } from "../../context/AppContext";
 
 const API_BASE = typeof window !== "undefined" && window.location.hostname === "localhost" 
@@ -18,32 +18,58 @@ export default function VideoHistoryPage() {
     } catch (error: any) { alert("O'chirishda xatolik yuz berdi"); }
   };
 
+  const videoHistory = history.filter((item: any) => item.task_type === "video");
+
   return (
     <div className="p-6 md:p-12 max-w-6xl mx-auto w-full">
-      <h2 className="text-3xl font-bold mb-10 text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(135deg, var(--accent), var(--accent-purple))' }}>Video Darslar</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {history.filter((item: any) => item.task_type === "video").length === 0 ? (
-          <div className="col-span-full"><p className="text-center py-10 text-sm font-medium text-[var(--text-secondary)]">Hozircha yaratilgan videolar yo'q</p></div>
-        ) : (
-          history.filter((item: any) => item.task_type === "video").map((item: any) => (
-            <div key={item.id} className="rounded-2xl overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow bg-[var(--bg-main)] border border-[var(--border)]">
-              <div className="aspect-video relative bg-black">
+      <h2 className="text-xl font-semibold text-[var(--text)] mb-6">Video Darslar</h2>
+      
+      {videoHistory.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-16">
+          <div className="w-12 h-12 rounded-full bg-[var(--bg-elevated)] border border-[var(--border)] flex items-center justify-center mb-4">
+            <Video className="w-6 h-6 text-[var(--text-secondary)]" />
+          </div>
+          <p className="text-sm font-medium text-[var(--text-secondary)] mb-1">Videolar yo'q</p>
+          <p className="text-xs text-[var(--text-tertiary)]">Yaratilgan video darslar shu yerda ko'rinadi</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {videoHistory.map((item: any) => (
+            <div 
+              key={item.id} 
+              className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl overflow-hidden hover:border-[var(--primary)]/30 hover:shadow-[var(--shadow-md)] hover:-translate-y-px transition-all duration-200 flex flex-col"
+            >
+              <div className="aspect-video relative bg-[var(--bg-inset)]">
                 {item.status === "COMPLETED" && item.video_base64 ? (
                   <video src={`data:video/mp4;base64,${item.video_base64}`} controls className="w-full h-full object-contain"></video>
                 ) : (
-                  <div className="flex items-center justify-center h-full text-sm font-medium text-[var(--text-secondary)]">
-                    {item.status === "PROCESSING" ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Jarayonda...</> : item.status === "FAILED" ? "Xatolik yuz berdi" : "Kutilmoqda"}
+                  <div className="flex items-center justify-center h-full">
+                    {item.status === "PROCESSING" ? (
+                      <div className="flex items-center text-sm text-[var(--text-secondary)]">
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Jarayonda...
+                      </div>
+                    ) : item.status === "FAILED" ? (
+                      <span className="text-sm text-[var(--error-text)]">Xatolik yuz berdi</span>
+                    ) : (
+                      <span className="text-sm text-[var(--text-secondary)]">Kutilmoqda</span>
+                    )}
                   </div>
                 )}
               </div>
-              <div className="p-4 flex items-start justify-between gap-3">
-                <span className="text-[15px] font-semibold line-clamp-2 leading-snug pt-1 text-[var(--text-primary)]">{item.title || item.prompt}</span>
-                <button onClick={() => handleDeleteTask(item.id)} className="p-2 rounded-xl text-red-500 hover:bg-red-500/10 transition-colors shrink-0"><Trash2 className="w-5 h-5" /></button>
+              <div className="p-4 flex items-start justify-between gap-3 mt-auto">
+                <span className="text-sm font-medium text-[var(--text)] line-clamp-2 pt-0.5">{item.title || item.prompt}</span>
+                <button 
+                  onClick={() => handleDeleteTask(item.id)} 
+                  className="text-[var(--text-tertiary)] hover:text-[var(--error)] hover:bg-[var(--error-muted)] rounded-lg p-2 transition-colors shrink-0"
+                  title="O'chirish"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
               </div>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

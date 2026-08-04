@@ -1,6 +1,7 @@
 "use client";
 import { useAppContext } from "../../context/AppContext";
 import { useRouter } from "next/navigation";
+import { MessageSquare } from "lucide-react";
 
 export default function HistoryPage() {
   const { chatSessions, setChatSessions, history, setActiveChatId } = useAppContext();
@@ -9,34 +10,51 @@ export default function HistoryPage() {
 
   return (
     <div className="p-6 md:p-12 max-w-4xl mx-auto w-full">
-      <h2 className="text-3xl font-bold mb-10 text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(135deg, var(--accent), var(--accent-purple))' }}>Chatlar Tarixi</h2>
-      <div className="p-8 rounded-[24px] shadow-sm bg-[var(--bg-sidebar)] border border-[var(--border)]">
-        <div className="space-y-3">
-          {chatSessions.length === 0 && textHistories.length === 0 ? (
-            <p className="text-center py-6 text-[15px] font-medium text-[var(--text-secondary)]">Hozircha chatlar yo'q</p>
-          ) : (
-            <>
-              {chatSessions.map((chat: any) => (
-                <button key={chat.id} onClick={() => { setActiveChatId(chat.id); router.push("/chat"); }} className="w-full text-left p-5 rounded-2xl flex flex-col gap-1.5 transition-colors hover:bg-[var(--bg-hover)] bg-[var(--bg-main)] border border-[var(--border)]">
-                  <span className="font-semibold text-[16px] truncate text-[var(--text-primary)]">{chat.title}</span>
-                  <span className="text-[13px] font-medium text-[var(--text-secondary)]">{chat.timestamp || 'Yaqinda'}</span>
-                </button>
-              ))}
-              {textHistories.map((th: any) => (
-                <button key={th.id} onClick={() => {
+      <h2 className="text-xl font-semibold text-[var(--text)] mb-6">Chatlar Tarixi</h2>
+      
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl overflow-hidden divide-y divide-[var(--border)]">
+        {chatSessions.length === 0 && textHistories.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-12">
+            <div className="w-12 h-12 rounded-full bg-[var(--bg-elevated)] border border-[var(--border)] flex items-center justify-center mb-4">
+              <MessageSquare className="w-5 h-5 text-[var(--text-secondary)]" />
+            </div>
+            <p className="text-sm text-[var(--text-secondary)]">Hozircha chatlar yo'q</p>
+          </div>
+        ) : (
+          <div className="flex flex-col divide-y divide-[var(--border)]">
+            {chatSessions.map((chat: any) => (
+              <div 
+                key={chat.id} 
+                onClick={() => { setActiveChatId(chat.id); router.push("/chat"); }} 
+                className="p-4 hover:bg-[var(--bg-hover)] transition-colors cursor-pointer flex flex-col gap-1 w-full text-left"
+              >
+                <span className="text-sm font-medium text-[var(--text)] truncate">{chat.title}</span>
+                <span className="text-xs text-[var(--text-tertiary)]">{chat.timestamp || 'Yaqinda'}</span>
+              </div>
+            ))}
+            {textHistories.map((th: any) => (
+              <div 
+                key={th.id} 
+                onClick={() => {
                   const newChatId = th.id;
                   if (!chatSessions.find((c: any) => c.id === newChatId)) {
-                    setChatSessions([{ id: newChatId, title: th.prompt.slice(0, 30), timestamp: th.timestamp, messages: [{ role: 'user', content: th.prompt }, { role: 'assistant', content: th.text_content, yt_videos: th.yt_videos }] }, ...chatSessions]);
+                    setChatSessions([{ 
+                      id: newChatId, 
+                      title: th.prompt.slice(0, 30), 
+                      timestamp: th.timestamp, 
+                      messages: [{ role: 'user', content: th.prompt }, { role: 'assistant', content: th.text_content, yt_videos: th.yt_videos }] 
+                    }, ...chatSessions]);
                   }
                   setActiveChatId(newChatId); router.push("/chat");
-                }} className="w-full text-left p-5 rounded-2xl flex flex-col gap-1.5 transition-colors hover:bg-[var(--bg-hover)] bg-[var(--bg-main)] border border-[var(--border)]">
-                  <span className="font-semibold text-[16px] truncate text-[var(--text-primary)]">{th.prompt.slice(0, 50)}...</span>
-                  <span className="text-[13px] font-medium text-[var(--text-secondary)]">{th.timestamp}</span>
-                </button>
-              ))}
-            </>
-          )}
-        </div>
+                }} 
+                className="p-4 hover:bg-[var(--bg-hover)] transition-colors cursor-pointer flex flex-col gap-1 w-full text-left"
+              >
+                <span className="text-sm font-medium text-[var(--text)] truncate">{th.prompt.slice(0, 50)}...</span>
+                <span className="text-xs text-[var(--text-tertiary)]">{th.timestamp}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

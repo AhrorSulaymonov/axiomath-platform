@@ -59,9 +59,9 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [settings, setSettings] = useState({
     use_bynara: true, bynara_key: "", bynara_base_url: "https://router.bynara.id/v1",
     bynara_model: "agnes-2.0-flash", resolution: "Vertical (Shorts/Reels 9:16)",
-    voice_type: "Erkak", watermark_enabled: true, bg_music: "none", theme_style: "light", video_lang: "auto"
+    voice_type: "Erkak", watermark_enabled: true, bg_music: "none", theme_style: "dark", video_lang: "auto"
   });
-  const [appTheme, setAppTheme] = useState<"dark" | "light">("light");
+  const [appTheme, setAppTheme] = useState<"dark" | "light">("dark");
 
   useEffect(() => { document.documentElement.setAttribute("data-theme", appTheme); }, [appTheme]);
   useEffect(() => { if (settings.theme_style === "light" || settings.theme_style === "dark") setAppTheme(settings.theme_style as "dark" | "light"); }, [settings.theme_style]);
