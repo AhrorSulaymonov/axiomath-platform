@@ -307,9 +307,9 @@ export default function App() {
         <section id="jamoa" className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-16">{d.team.title}</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="flex flex-wrap justify-center gap-8">
               {d.team.members.map((member, i) => (
-                <div key={i} className="border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow">
+                <div key={i} className="border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow w-full sm:w-[280px] text-center">
                   <img
                     src={`https://ui-avatars.com/api/?name=${member.name.substring(0,2)}&background=${['6366f1','ec4899','8b5cf6','10b981'][i]}&color=fff`}
                     alt={member.name}
