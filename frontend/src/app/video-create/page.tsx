@@ -281,8 +281,8 @@ export default function VideoCreatePage() {
                     <Play className="w-4 h-4 fill-current" />
                   )}
                   {isGenerating || activeTaskInfo?.status === "PROCESSING"
-                    ? "Yaratilmoqda..."
-                    : "Video dars yaratish"}
+                    ? t("generating")
+                    : t("generate_video")}
                 </button>
               </div>
             </div>
@@ -355,37 +355,37 @@ export default function VideoCreatePage() {
                 {renderPipelineStep(
                   1,
                   "Problem Analysis (Vision)",
-                  "Agnes-2.0 tahlil qilmoqda...",
-                  "Agnes-2.0 tahlili yakunlandi (1.2s)",
+                  t("step1_active"),
+                  t("step1_done"),
                   t("pending"),
                 )}
                 {renderPipelineStep(
                   2,
                   "Storyboard & SVG",
-                  "Agnes-2.0 mantiqiy tuzilma yaratmoqda...",
-                  "Agnes-2.0 mantiqiy tuzilmani yaratdi (3.4s)",
+                  t("step2_active"),
+                  t("step2_done"),
                   t("pending"),
                 )}
                 {renderPipelineStep(
                   3,
                   "Audio Synthesis (TTS)",
-                  "MMS-TTS audiolarni sintez qilmoqda...",
-                  "Audiolar muvaffaqiyatli sintez qilindi",
-                  "MMS-TTS sintezi kutmoqda...",
+                  t("step3_active"),
+                  t("step3_done"),
+                  t("step3_pending"),
                 )}
                 {renderPipelineStep(
                   4,
                   "Slide Rendering",
-                  "Slaydlar tayyorlanmoqda...",
-                  "Slaydlar tayyor",
-                  "Playwright & KaTeX kutmoqda",
+                  t("step4_active"),
+                  t("step4_done"),
+                  t("step4_pending"),
                 )}
                 {renderPipelineStep(
                   5,
                   "Video Compilation",
-                  "Video yig'ilmoqda...",
-                  "Video muvaffaqiyatli yig'ildi",
-                  "FFmpeg yig'ish kutmoqda",
+                  t("step5_active"),
+                  t("step5_done"),
+                  t("step5_pending"),
                 )}
               </div>
             </div>
