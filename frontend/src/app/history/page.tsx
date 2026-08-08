@@ -4,13 +4,13 @@ import { useRouter } from "next/navigation";
 import { MessageSquare } from "lucide-react";
 
 export default function HistoryPage() {
-  const { chatSessions, setChatSessions, history, setActiveChatId } = useAppContext();
+  const { chatSessions, setChatSessions, history, setActiveChatId, t } = useAppContext();
   const router = useRouter();
   const textHistories = history.filter((h: any) => h.task_type === 'text');
 
   return (
     <div className="p-6 md:p-12 max-w-4xl mx-auto w-full">
-      <h2 className="text-xl font-semibold text-[var(--text)] mb-6">Chatlar Tarixi</h2>
+      <h2 className="text-xl font-semibold text-[var(--text)] mb-6">{t("text_history")}</h2>
       
       <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl overflow-hidden divide-y divide-[var(--border)]">
         {chatSessions.length === 0 && textHistories.length === 0 ? (
@@ -18,7 +18,7 @@ export default function HistoryPage() {
             <div className="w-12 h-12 rounded-full bg-[var(--bg-elevated)] border border-[var(--border)] flex items-center justify-center mb-4">
               <MessageSquare className="w-5 h-5 text-[var(--text-secondary)]" />
             </div>
-            <p className="text-sm text-[var(--text-secondary)]">Hozircha chatlar yo'q</p>
+            <p className="text-sm text-[var(--text-secondary)]">{t("no_chats")}</p>
           </div>
         ) : (
           <div className="flex flex-col divide-y divide-[var(--border)]">

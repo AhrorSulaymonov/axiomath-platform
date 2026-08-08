@@ -95,7 +95,7 @@ export default function VideoCreatePage() {
     label: string,
     descActive: string,
     descDone: string,
-    descPending: string = "Kutilmoqda",
+    descPending: string = t("pending"),
   ) => {
     let state = "inactive";
     if (activeTaskInfo?.status === "COMPLETED") state = "completed";
@@ -160,7 +160,7 @@ export default function VideoCreatePage() {
         <div className="w-full lg:w-7/12 flex flex-col gap-6">
           <div className="p-6 rounded-xl bg-[var(--bg-card)] border border-[var(--border)]">
             <h3 className="text-sm font-semibold mb-4 text-[var(--text)]">
-              Masala sharti
+              {t("problem_text")}
             </h3>
 
             <div className="space-y-6">
@@ -170,7 +170,7 @@ export default function VideoCreatePage() {
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   className="w-full h-32 rounded-lg p-4 text-sm outline-none resize-none bg-[var(--bg-inset)] border border-[var(--border)] text-[var(--text)] focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary-glow)] transition-all placeholder-[var(--text-tertiary)]"
-                  placeholder="Masalan: To'g'ri burchakli uchburchakning katetlari 6 va 8 ga teng..."
+                  placeholder={t("problem_text_placeholder")}
                 ></textarea>
               </div>
 
@@ -211,10 +211,10 @@ export default function VideoCreatePage() {
                       <ImagePlus className="w-6 h-6 text-[var(--text-secondary)] transition-colors" />
                     </div>
                     <p className="text-sm font-medium text-[var(--text)]">
-                      Rasmni bu yerga tashlang yoki tanlang
+                      {t("drop_image")}
                     </p>
                     <p className="text-xs mt-1 text-[var(--text-tertiary)]">
-                      PNG, JPG (Maksimal 5MB)
+                      {t("max_5mb")}
                     </p>
                   </div>
                 )}
@@ -310,7 +310,7 @@ export default function VideoCreatePage() {
         <div className="w-full lg:w-5/12 flex flex-col gap-6">
           {/* Natija Video Qutisi */}
           <div className="p-6 rounded-xl bg-[var(--bg-card)] border border-[var(--border)]">
-            <h3 className="text-sm font-semibold mb-4 text-[var(--text)]">Natija</h3>
+            <h3 className="text-sm font-semibold mb-4 text-[var(--text)]">{t("result")}</h3>
             <div className="w-full aspect-[9/16] max-h-[450px] bg-[var(--bg-inset)] rounded-lg relative overflow-hidden flex items-center justify-center group">
               {activeTaskInfo?.status === "COMPLETED" &&
               activeTaskInfo.video_base64 ? (
@@ -345,7 +345,7 @@ export default function VideoCreatePage() {
           {/* Jarayon Pipeline Qutisi */}
           <div className="p-6 rounded-xl bg-[var(--bg-card)] border border-[var(--border)]">
             <h3 className="text-sm font-semibold mb-6 text-[var(--text)]">
-              Jarayon (Pipeline)
+              {t("pipeline")}
             </h3>
             <div className="space-y-6 relative">
               {/* O'rtadagi bog'lovchi chiziq (faketiv vizual uchun) */}
@@ -357,14 +357,14 @@ export default function VideoCreatePage() {
                   "Problem Analysis (Vision)",
                   "Agnes-2.0 tahlil qilmoqda...",
                   "Agnes-2.0 tahlili yakunlandi (1.2s)",
-                  "Kutilmoqda...",
+                  t("pending"),
                 )}
                 {renderPipelineStep(
                   2,
                   "Storyboard & SVG",
                   "Agnes-2.0 mantiqiy tuzilma yaratmoqda...",
                   "Agnes-2.0 mantiqiy tuzilmani yaratdi (3.4s)",
-                  "Kutilmoqda...",
+                  t("pending"),
                 )}
                 {renderPipelineStep(
                   3,

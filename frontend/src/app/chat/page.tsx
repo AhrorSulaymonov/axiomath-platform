@@ -14,7 +14,7 @@ const API_BASE = typeof window !== "undefined" && window.location.hostname === "
   : "https://api.axiomath.tech/api";
 
 export default function ChatPage() {
-  const { username, chatSessions, setChatSessions, activeChatId, setActiveChatId, fetchUserInfo, fetchHistory } = useAppContext();
+  const { username, chatSessions, setChatSessions, activeChatId, setActiveChatId, fetchUserInfo, fetchHistory, t } = useAppContext();
   const [chatInput, setChatInput] = useState("");
   const [chatSelectedFile, setChatSelectedFile] = useState<File | null>(null);
   const [chatPreviewUrl, setChatPreviewUrl] = useState<string | null>(null);
@@ -102,8 +102,8 @@ export default function ChatPage() {
     <div className="h-full flex flex-col w-full relative bg-[var(--bg)]">
       {!activeChatId || activeChat?.messages.length === 0 ? (
         <div className="flex-1 flex flex-col items-center justify-center px-6 -mt-20">
-          <h1 className="text-2xl font-semibold text-center mb-4 text-[var(--text)]">Qanday masalani yechamiz?</h1>
-          <p className="text-[var(--text-secondary)] text-sm text-center max-w-md">Matematika, fizika yoki ximiya masalalarini yozing yoki rasmga olib yuboring. Men yechimini ko'rsataman.</p>
+          <h1 className="text-2xl font-semibold text-center mb-4 text-[var(--text)]">{t("chat_title")}</h1>
+          <p className="text-[var(--text-secondary)] text-sm text-center max-w-md">{t("chat_subtitle")}</p>
         </div>
       ) : (
         <div className="flex-1 overflow-y-auto px-6 sm:px-12 md:px-24 lg:px-40 py-10 pb-40 flex flex-col items-center">
@@ -208,7 +208,7 @@ export default function ChatPage() {
             <button onClick={() => chatFileInputRef.current?.click()} className="text-[var(--text-tertiary)] hover:text-[var(--primary)] transition-colors mr-3">
               <Paperclip className="w-5 h-5" />
             </button>
-            <input type="text" value={chatInput} onChange={(e) => setChatInput(e.target.value)} onKeyDown={handleKeyDown} placeholder="Masalani yozing..." className="flex-1 bg-transparent outline-none text-sm text-[var(--text)] placeholder-[var(--text-tertiary)]" />
+            <input type="text" value={chatInput} onChange={(e) => setChatInput(e.target.value)} onKeyDown={handleKeyDown} placeholder={t("chat_placeholder")} className="flex-1 bg-transparent outline-none text-sm text-[var(--text)] placeholder-[var(--text-tertiary)]" />
             
             <div className="flex items-center ml-2">
               {isChatGenerating ? (

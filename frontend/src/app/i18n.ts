@@ -48,7 +48,15 @@ export const translations: Record<string, Record<string, string>> = {
     voice: "Ovoz",
     male: "Erkak",
     female: "Ayol",
-    format: "Format"
+    format: "Format",
+    chat_title: "Qanday masalani yechamiz?",
+    chat_subtitle: "Matematika, fizika yoki ximiya masalalarini yozing yoki rasmga olib yuboring. Men yechimini ko'rsataman.",
+    chat_placeholder: "Masalani yozing...",
+    max_5mb: "PNG, JPG (Maksimal 5MB)",
+    pending: "Kutilmoqda...",
+    no_videos: "Videolar yo'q",
+    no_videos_desc: "Yaratilgan video darslar shu yerda ko'rinadi",
+    no_chats: "Hozircha chatlar yo'q"
   },
   ru: {
     dashboard: "Дашборд",
@@ -98,7 +106,15 @@ export const translations: Record<string, Record<string, string>> = {
     voice: "Голос",
     male: "Мужской",
     female: "Женский",
-    format: "Формат"
+    format: "Формат",
+    chat_title: "Какую задачу решим?",
+    chat_subtitle: "Напишите или сфотографируйте задачи по математике, физике или химии. Я покажу решение.",
+    chat_placeholder: "Напишите задачу...",
+    max_5mb: "PNG, JPG (Максимум 5МБ)",
+    pending: "В ожидании...",
+    no_videos: "Нет видео",
+    no_videos_desc: "Созданные видеоуроки будут отображаться здесь",
+    no_chats: "Пока нет чатов"
   },
   en: {
     dashboard: "Dashboard",
@@ -148,6 +164,14 @@ export const translations: Record<string, Record<string, string>> = {
     voice: "Voice",
     male: "Male",
     female: "Female",
-    format: "Format"
+    format: "Format",
+    chat_title: "What problem shall we solve?",
+    chat_subtitle: "Write or take a picture of math, physics, or chemistry problems. I will show the solution.",
+    chat_placeholder: "Write the problem...",
+    max_5mb: "PNG, JPG (Maximum 5MB)",
+    pending: "Pending...",
+    no_videos: "No videos",
+    no_videos_desc: "Created video lessons will appear here",
+    no_chats: "No chats yet"
   },
 };

@@ -8,7 +8,7 @@ const API_BASE = typeof window !== "undefined" && window.location.hostname === "
   : "https://api.axiomath.tech/api";
 
 export default function VideoHistoryPage() {
-  const { username, history, fetchHistory } = useAppContext();
+  const { username, history, fetchHistory, t } = useAppContext();
 
   const handleDeleteTask = async (taskId: string) => {
     if (!confirm("Rostdan ham bu darsni o'chirmoqchimisiz?")) return;
@@ -22,15 +22,15 @@ export default function VideoHistoryPage() {
 
   return (
     <div className="p-6 md:p-12 max-w-6xl mx-auto w-full">
-      <h2 className="text-xl font-semibold text-[var(--text)] mb-6">Video Darslar</h2>
+      <h2 className="text-xl font-semibold text-[var(--text)] mb-6">{t("video_history")}</h2>
       
       {videoHistory.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16">
           <div className="w-12 h-12 rounded-full bg-[var(--bg-elevated)] border border-[var(--border)] flex items-center justify-center mb-4">
             <Video className="w-6 h-6 text-[var(--text-secondary)]" />
           </div>
-          <p className="text-sm font-medium text-[var(--text-secondary)] mb-1">Videolar yo'q</p>
-          <p className="text-xs text-[var(--text-tertiary)]">Yaratilgan video darslar shu yerda ko'rinadi</p>
+          <p className="text-sm font-medium text-[var(--text-secondary)] mb-1">{t("no_videos")}</p>
+          <p className="text-xs text-[var(--text-tertiary)]">{t("no_videos_desc")}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -51,7 +51,7 @@ export default function VideoHistoryPage() {
                     ) : item.status === "FAILED" ? (
                       <span className="text-sm text-[var(--error-text)]">Xatolik yuz berdi</span>
                     ) : (
-                      <span className="text-sm text-[var(--text-secondary)]">Kutilmoqda</span>
+                      <span className="text-sm text-[var(--text-secondary)]">{t("pending")}</span>
                     )}
                   </div>
                 )}
